@@ -19,4 +19,14 @@ def get_pets():
     cur.execute(querytext)
     rows = cur.fetchall()
     print(rows)
-  return 'Pets'
+  return jsonify(rows), 201
+
+@app.route('/owners', methods=['GET', 'POST'])
+def get_owners():
+  if request.method == 'GET':
+    querytext = 'SELECT "owners"."id", "owners"."name", COUNT("pets"."owner_id") FROM "pets" JOIN "owners" ON "owners"."id" = "pets"."owner_id" GROUP BY "owners"."id";'
+    cur = con.cursor()
+    cur.execute(querytext)
+    rows = cur.fetchall()
+    print(rows)
+  return jsonify(rows), 201
