@@ -13,20 +13,25 @@ def hello_world():
 
 @app.route('/pets', methods=['GET', 'POST'])
 def get_pets():
-  if request.method == 'GET':
+  if (request.method == 'GET'):
     querytext = 'SELECT "pets"."id", "pets"."petName", "pets"."breed", "pets"."color", "pets"."isCheckedIn", "owners"."name" AS "ownerName" FROM "pets" JOIN "owners" ON "pets"."owner_id" = "owners"."id";'
     cur = con.cursor()
     cur.execute(querytext)
     rows = cur.fetchall()
     print(rows)
-  return jsonify(rows), 201
+    return jsonify(rows), 201
 
 @app.route('/owners', methods=['GET', 'POST'])
 def get_owners():
-  if request.method == 'GET':
+  if (request.method == 'GET'):
     querytext = 'SELECT "owners"."id", "owners"."name", COUNT("pets"."owner_id") FROM "pets" JOIN "owners" ON "owners"."id" = "pets"."owner_id" GROUP BY "owners"."id";'
     cur = con.cursor()
     cur.execute(querytext)
     rows = cur.fetchall()
     print(rows)
-  return jsonify(rows), 201
+    return jsonify(rows), 201
+  elif (request.method == 'POST'):
+    print (request.is_json)
+    content = request.get_json()
+    print (content)
+    return 'created', 201
