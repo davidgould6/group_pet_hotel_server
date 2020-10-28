@@ -7,12 +7,13 @@ CREATE TABLE "pets"(
 "color" VARCHAR (100) NOT NULL,
 "isCheckedIn" BOOLEAN DEFAULT false
 );
-
 CREATE TABLE "owners"(
 "id" serial PRIMARY KEY,
 "name" VARCHAR (100) NOT NULL
 );
-
 INSERT INTO "owners"("name") VALUES ('David'), ('Gabriel'), ('Ashley');
-
-INSERT INTO "pets"("owner_id", "petName", "breed", "color") VALUES ('1', 'Jake', 'adorbs', 'white'), ('2', 'Icarus', 'St. Bernard', 'brown and white'), ('3', 'Boo', 'cat', 'greyish');
+INSERT INTO "pets" ("owner_id", "petName", "breed", "color") 
+VALUES 
+('1', 'Jake', 'adorbs', 'white'), 
+('2', 'Icarus', 'St. Bernard', 'brown and white'), 
+('3', 'Boo', 'cat', 'greyish');
