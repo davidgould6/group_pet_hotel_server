@@ -28,3 +28,13 @@ FROM "pets"
 JOIN "owners"
 ON "owners"."id" = "pets"."owner_id"
 GROUP BY "owners"."id";
+
+INSERT INTO "pets" ("owner_id", "petName", "breed", "color") VALUES (%s, %s, %s, %s);
+
+INSERT INTO "owners" ("name") VALUES (%s);
+
+DELETE FROM "owners" WHERE "id" = %s;
+
+DELETE FROM "pets" WHERE "id" = %s;
+
+UPDATE "pets" SET "isCheckedIn" = TRUE WHERE "id" = %s;
