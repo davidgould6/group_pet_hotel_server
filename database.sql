@@ -38,3 +38,5 @@ DELETE FROM "owners" WHERE "id" = %s;
 DELETE FROM "pets" WHERE "id" = %s;
 
 UPDATE "pets" SET "isCheckedIn" = TRUE WHERE "id" = %s;
+
+UPDATE "pets" SET "isCheckedIn" = FALSE WHERE "id" = %s;
