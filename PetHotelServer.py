@@ -23,19 +23,37 @@ def get_pets():
 
 @app.route('/owners', methods=['GET', 'POST'])
 def get_owners():
+  #if request from client is 'GET' run this code block
   if (request.method == 'GET'):
+    # querytext to execute
     querytext = 'SELECT "owners"."id", "owners"."name", COUNT("pets"."owner_id") FROM "pets" JOIN "owners" ON "owners"."id" = "pets"."owner_id" GROUP BY "owners"."id";'
+    # creating cursor
     cur = con.cursor()
+    # executing query
     cur.execute(querytext)
+    # fetching all data from db and declaring as rows
     rows = cur.fetchall()
+    # print rows to make sure this data is correct
     print(rows)
+    # using flask built in jsonify to send data via json data type and 201 code.
     return jsonify(rows), 201
+
+    # if request from client is 'POST' run this code block
   elif (request.method == 'POST'):
+    # declares content to be the data from client that is sent over
     content = request.json
+    # print testing that this is our data/content
     print('hopefully this is content?', content)
     print('is this our name?', content["name"])
+    # querytext to execute
     querytext = 'INSERT INTO "owners" ("name") VALUES (%s);'
+    # creates a new cursor
     cur = con.cursor()
+    # executes query with sanitization
     cur.execute(querytext, (content["name"],))
+    # commits changes to the table in the db
     con.commit()
+    # closes connection. 
+    cur.close()
+    # returns 'created' and 201 status code
     return 'created', 201
