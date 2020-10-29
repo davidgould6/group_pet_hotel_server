@@ -46,6 +46,17 @@ def pets_delete_put(id):
     con.commit()
     cur.close()
     return 'Deleted', 201
+  elif (request.method == 'PUT'):
+    cur = con.cursor()
+    petId = id
+    content = request.json["checkedStatus"]
+    if (content == "in"):
+      querytext = 'UPDATE "pets" SET "isCheckedIn" = TRUE WHERE "id" = %s;'
+      cur.execute(querytext, (petId))
+      con.commit()
+      cur.close()
+      return 'updated', 201
+    
 
 
 
