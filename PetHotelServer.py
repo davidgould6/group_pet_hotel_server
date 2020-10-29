@@ -38,17 +38,25 @@ def get_pets():
 
 @app.route('/pets/<id>', methods=['DELETE', 'PUT'])
 def pets_delete_put(id):
+  # if 'DELETE' request, run this block of code
   if (request.method == 'DELETE'):
+    # declaring new variable with inputted id
     petId = id
+    # the query text to send to the db
     querytext = 'DELETE FROM "pets" WHERE "id" = %s;'
+    # declaring our cursor
     cur = con.cursor()
+    # executing the query with the pet ID
     cur.execute(querytext, (petId))
+    # commits the change to the table
     con.commit()
+    # closes our cursor
     cur.close()
     return 'Deleted', 201
   elif (request.method == 'PUT'):
     cur = con.cursor()
     petId = id
+    # declaring variable 'content' to be data sent from client which is a string, either "in" or "out"
     content = request.json["checkedStatus"]
     if (content == "in"):
       querytext = 'UPDATE "pets" SET "isCheckedIn" = TRUE WHERE "id" = %s;'
