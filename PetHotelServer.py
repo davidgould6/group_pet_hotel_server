@@ -63,7 +63,16 @@ def pets_delete_put(id):
       cur.close()
       return 'updated', 201
 
-
+@app.route('/owners/<id>', methods=['DELETE'])
+def owners_delete_put(id):
+  if (request.method == 'DELETE'):
+    ownersId = id
+    querytext = 'DELETE FROM "owners" WHERE "id" = %s;'
+    cur = con.cursor()
+    cur.execute(querytext, (ownersId))
+    con.commit()
+    cur.close()
+    return 'Deleted', 201
 
 @app.route('/owners', methods=['GET', 'POST'])
 def get_owners():
