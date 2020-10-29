@@ -31,7 +31,11 @@ def get_owners():
     print(rows)
     return jsonify(rows), 201
   elif (request.method == 'POST'):
-    print (request.is_json)
-    content = request.get_json()
-    print (content)
+    content = request.json
+    print('hopefully this is content?', content)
+    print('is this our name?', content["name"])
+    querytext = 'INSERT INTO "owners" ("name") VALUES (%s);'
+    cur = con.cursor()
+    cur.execute(querytext, (content["name"],))
+    con.commit()
     return 'created', 201
