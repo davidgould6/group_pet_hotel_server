@@ -36,6 +36,18 @@ def get_pets():
     # returns 'created' and 201 status code
     return 'created', 201
 
+@app.route('/pets/<id>', methods=['DELETE', 'PUT'])
+def pets_delete_put(id):
+  if (request.method == 'DELETE'):
+    petId = id
+    querytext = 'DELETE FROM "pets" WHERE "id" = %s;'
+    cur = con.cursor()
+    cur.execute(querytext, (petId))
+    con.commit()
+    cur.close()
+    return 'Deleted', 201
+
+
 
 @app.route('/owners', methods=['GET', 'POST'])
 def get_owners():
