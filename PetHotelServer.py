@@ -58,13 +58,16 @@ def pets_delete_put(id):
     petId = id
     # declaring variable 'content' to be data sent from client which is a string, either "in" or "out"
     content = request.json["isCheckedIn"]
-    if (content == 'true'):
+    # content = request.json
+    print(content)
+    # return 'bla bla blaah!'
+    if (content == "true"):
       querytext = 'UPDATE "pets" SET "isCheckedIn" = TRUE WHERE "id" = %s;'
       cur.execute(querytext, (petId))
       con.commit()
       cur.close()
       return 'updated', 201
-    elif (content == 'false'):
+    elif (content == "false"):
       querytext = 'UPDATE "pets" SET "isCheckedIn" = FALSE WHERE "id" = %s;'
       cur.execute(querytext, (petId))
       con.commit()
